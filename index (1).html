@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome, Cristina — Damascus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:        #F5F0E8;
+      --cream-dark:   #EDE6D6;
+      --dam-green:    #234033;
+      --mid-green:    #3D6B55;
+      --sec-green:    #9AB5A2;
+      --earth:        #9E7750;
+      --earth-light:  #C9A882;
+      --off-white:    #F9F6EE;
+      --dark:         #1C2B22;
+      --text-body:    #3D3A34;
+      --text-muted:   #7A7060;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--text-body);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: var(--cream);
+      border-bottom: 1.5px solid rgba(35,64,51,0.12);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .nav-logo svg { width: 32px; height: 32px; }
+
+    .nav-wordmark {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dam-green);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--dam-green); }
+
+    .nav-cta {
+      background: var(--dam-green);
+      color: var(--off-white) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 100px;
+      font-weight: 500 !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--mid-green) !important; color: var(--off-white) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(35,64,51,0.08);
+      color: var(--dam-green);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      border: 1px solid rgba(35,64,51,0.15);
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.1s forwards;
+    }
+
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.08;
+      color: var(--dam-green);
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.25s forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--earth);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.55s forwards;
+    }
+
+    .btn-green {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--dam-green);
+      color: var(--off-white);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 0.75rem 1.6rem;
+      border-radius: 100px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-green:hover { background: var(--mid-green); transform: translateY(-2px); }
+    .btn-green .arrow { font-size: 1rem; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--dam-green);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 0.75rem 1.6rem;
+      border-radius: 100px;
+      border: 1.5px solid rgba(35,64,51,0.3);
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .btn-ghost:hover { border-color: var(--dam-green); transform: translateY(-2px); }
+
+    /* ── WAVY DIVIDER ── */
+    .wave-divider {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      margin-top: 2rem;
+    }
+    .wave-divider svg { display: block; width: 100%; }
+
+    /* ── MODULE SECTIONS ── */
+    .module {
+      padding: 5rem 2rem;
+      position: relative;
+    }
+
+    .module-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    .module.alt {
+      background: var(--cream-dark);
+    }
+
+    .module-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 2.5rem;
+    }
+
+    .module-pill {
+      display: inline-block;
+      background: var(--dam-green);
+      color: var(--off-white);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+      margin-bottom: 1rem;
+    }
+
+    .module h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--dam-green);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+
+    .module h2 em {
+      font-style: italic;
+      color: var(--earth);
+    }
+
+    .module-desc {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 520px;
+    }
+
+    /* ── VIDEO CARD ── */
+    .video-card {
+      background: var(--off-white);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1.5px solid rgba(35,64,51,0.1);
+      box-shadow: 0 4px 24px rgba(35,64,51,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .video-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(35,64,51,0.12);
+    }
+
+    .video-embed {
+      position: relative;
+      padding-bottom: 56.25%;
+    }
+    .video-embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .video-footer {
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      border-top: 1.5px solid rgba(35,64,51,0.08);
+    }
+
+    .play-badge {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: var(--earth);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .play-badge svg { width: 13px; height: 13px; fill: white; margin-left: 2px; }
+
+    .video-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--earth);
+      margin-bottom: 0.2rem;
+    }
+    .video-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--dam-green);
+      margin-bottom: 0.15rem;
+    }
+    .video-sub {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* ── TIPS ── */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .tip-card {
+      background: var(--off-white);
+      border: 1.5px solid rgba(35,64,51,0.1);
+      border-radius: 16px;
+      padding: 1.4rem 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .module.alt .tip-card { background: var(--cream); }
+    .tip-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(35,64,51,0.08); }
+
+    .tip-num {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--earth);
+      margin-bottom: 0.5rem;
+    }
+    .tip-text {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    /* ── QUOTE SECTION ── */
+    .quote-section {
+      background: var(--dam-green);
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-section::before {
+      content: '"';
+      position: absolute;
+      top: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fraunces', serif;
+      font-size: 18rem;
+      color: rgba(154,181,162,0.07);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .quote-section blockquote {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 3vw, 2.3rem);
+      font-weight: 400;
+      color: var(--off-white);
+      max-width: 760px;
+      margin: 0 auto 1.25rem;
+      line-height: 1.45;
+      position: relative;
+    }
+
+    .quote-attr {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sec-green);
+    }
+
+    /* ── FORM ── */
+    .form-section {
+      padding: 5.5rem 2rem;
+      background: var(--cream-dark);
+    }
+
+    .form-inner {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .form-inner .module-pill { margin-bottom: 1rem; }
+
+    .form-inner h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--dam-green);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+      line-height: 1.1;
+    }
+    .form-inner h2 em { font-style: italic; color: var(--earth); }
+
+    .form-inner .form-sub {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    .form-group { margin-bottom: 1.1rem; }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--dam-green);
+      margin-bottom: 0.4rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      background: var(--off-white);
+      border: 1.5px solid rgba(35,64,51,0.15);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--text-body);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input::placeholder, textarea::placeholder { color: rgba(122,112,96,0.5); }
+    input:focus, textarea:focus {
+      border-color: var(--dam-green);
+      box-shadow: 0 0 0 3px rgba(35,64,51,0.08);
+    }
+    textarea { resize: vertical; min-height: 140px; }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--dam-green);
+      color: var(--off-white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: none;
+      border-radius: 100px;
+      padding: 0.85rem 2rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .submit-btn:hover { background: var(--mid-green); transform: translateY(-2px); }
+
+    .form-success {
+      display: none;
+      background: rgba(35,64,51,0.08);
+      border: 1.5px solid rgba(35,64,51,0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      color: var(--dam-green);
+      font-size: 1rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      text-align: center;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .footer-brand svg { width: 26px; height: 26px; }
+    .footer-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--off-white);
+    }
+    .footer-tagline {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--sec-green);
+    }
+    .footer-copy { font-size: 0.78rem; color: rgba(154,181,162,0.45); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .rd1 { transition-delay: 0.1s; }
+    .rd2 { transition-delay: 0.2s; }
+    .rd3 { transition-delay: 0.3s; }
+
+    @media (max-width: 680px) {
+      nav { padding: 0.9rem 1.25rem; }
+      .nav-links { display: none; }
+      .module { padding: 3.5rem 1.25rem; }
+      .video-footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 60 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#234033" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#234033" stroke-width="2.5" stroke-linecap="round" transform="rotate(22 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#234033" stroke-width="2.5" stroke-linecap="round" transform="rotate(44 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#234033" stroke-width="2.5" stroke-linecap="round" transform="rotate(66 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#234033" stroke-width="2.5" stroke-linecap="round" transform="rotate(88 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#234033" stroke-width="2.5" stroke-linecap="round" transform="rotate(110 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#234033" stroke-width="2.5" stroke-linecap="round" transform="rotate(132 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#234033" stroke-width="2.5" stroke-linecap="round" transform="rotate(154 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#234033" stroke-width="2.5" stroke-linecap="round" transform="rotate(176 30 30)"/>
+      <path d="M18 30 A12 12 0 0 1 42 30" fill="#234033"/>
+      <path d="M4 42 Q14 32 24 38 Q30 42 36 38 Q46 32 56 42 L56 52 L4 52 Z" fill="#234033"/>
+    </svg>
+    <span class="nav-wordmark">Damascus</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#figma">Figma</a></li>
+    <li><a href="#affinity">Affinity</a></li>
+    <li><a href="#brand">Brand Design</a></li>
+    <li><a href="#questions" class="nav-cta">Ask a Question</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <span class="hero-tag">👋 Designer Onboarding</span>
+  <h1>Welcome to the<br><em>adventure,</em> Cristina.</h1>
+  <p class="hero-sub">Your tools, training, and resources as a graphic designer at Damascus — all in one cheerful place.</p>
+  <div class="hero-buttons">
+    <a href="#figma" class="btn-green">Start Learning <span class="arrow">→</span></a>
+    <a href="#questions" class="btn-ghost">Ask a Question</a>
+  </div>
+</section>
+
+<!-- ── FIGMA ── -->
+<section class="module" id="figma">
+  <div class="module-inner">
+    <div class="module-header reveal">
+      <span class="module-pill">Module 01</span>
+      <h2>Figma for<br><em>Graphic Designers</em></h2>
+      <p class="module-desc">The industry-standard tool for digital design and collaboration. Here's how it fits into your daily life at Damascus.</p>
+    </div>
+
+    <div class="video-card reveal rd1">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/RNGwZYI9smE" title="Figma for Graphic Designers" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-footer">
+        <div class="play-badge"><svg viewBox="0 0 13 13"><path d="M3 2l8 4.5-8 4.5z"/></svg></div>
+        <div>
+          <p class="video-label">Getting Started</p>
+          <p class="video-title">Figma Essentials for Graphic Designers</p>
+          <p class="video-sub">Frames, Auto Layout, components, and team collaboration — everything you'll use daily.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tips-grid reveal rd2">
+      <div class="tip-card">
+        <p class="tip-num">Tip 01</p>
+        <p class="tip-text">Use Auto Layout to build flexible, scalable components that adapt as content changes.</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-num">Tip 02</p>
+        <p class="tip-text">Name your layers clearly — it makes handoff seamless and your files easy to navigate.</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-num">Tip 03</p>
+        <p class="tip-text">Save reusable elements to our shared team library to keep brand consistency across all projects.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AFFINITY ── -->
+<section class="module alt" id="affinity">
+  <div class="module-inner">
+    <div class="module-header reveal">
+      <span class="module-pill">Module 02</span>
+      <h2>Affinity for<br><em>Graphic Designers</em></h2>
+      <p class="module-desc">Professional-grade design for print and production. Designer, Photo, and Publisher are central to how we create at Damascus.</p>
+    </div>
+
+    <div class="video-card reveal rd1">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/lTeperbIZBc" title="Affinity for Graphic Designers" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-footer">
+        <div class="play-badge"><svg viewBox="0 0 13 13"><path d="M3 2l8 4.5-8 4.5z"/></svg></div>
+        <div>
+          <p class="video-label">Getting Started</p>
+          <p class="video-title">Affinity Suite Essentials</p>
+          <p class="video-sub">Designer, Photo, and Publisher — the core workflows every Damascus designer should know.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tips-grid reveal rd2">
+      <div class="tip-card">
+        <p class="tip-num">Tip 01</p>
+        <p class="tip-text">Use Affinity Designer for all vector-based brand assets, icons, and illustrations.</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-num">Tip 02</p>
+        <p class="tip-text">Affinity Publisher handles multi-page layouts — brochures, programs, decks, all of it.</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-num">Tip 03</p>
+        <p class="tip-text">All three apps share one asset library — set it up once and access everything from anywhere.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUOTE ── -->
+<div class="quote-section">
+  <blockquote class="reveal">"Damascus is who we are. Life-changing experiences are what we do. Spirit-filled community is how we do it unlike anyone else."</blockquote>
+  <p class="quote-attr reveal rd1">Damascus Brand Guide · 2024</p>
+</div>
+
+<!-- ── BRAND DESIGN ── -->
+<section class="module" id="brand">
+  <div class="module-inner">
+    <div class="module-header reveal">
+      <span class="module-pill">Module 03</span>
+      <h2>Brand Design<br><em>Fundamentals</em></h2>
+      <p class="module-desc">Every piece you make at Damascus represents something bigger. Think like a brand designer on every deliverable.</p>
+    </div>
+
+    <div class="video-card reveal rd1">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/V3pQ2BXblUE" title="Brand Design Fundamentals" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-footer">
+        <div class="play-badge"><svg viewBox="0 0 13 13"><path d="M3 2l8 4.5-8 4.5z"/></svg></div>
+        <div>
+          <p class="video-label">Core Principles</p>
+          <p class="video-title">Brand Design for Graphic Designers</p>
+          <p class="video-sub">From strategy to visual identity — think like a brand designer on every deliverable you produce.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tips-grid reveal rd2">
+      <div class="tip-card">
+        <p class="tip-num">Tip 01</p>
+        <p class="tip-text">Always reference the Damascus brand guide before starting any new asset or project.</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-num">Tip 02</p>
+        <p class="tip-text">Consistency builds trust — use the approved palette, type scale, and spacing system every time.</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-num">Tip 03</p>
+        <p class="tip-text">Every design decision should ladder back to who Damascus is and the mission we're on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FORM ── -->
+<section class="form-section" id="questions">
+  <div class="form-inner">
+    <div class="reveal">
+      <span class="module-pill">Got Questions?</span>
+      <h2>We're here<br><em>to help.</em></h2>
+      <p class="form-sub">Anything unclear? Want to talk through a concept? Send a message and we'll get back to you directly.</p>
+    </div>
+
+    <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="reveal rd1">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Cristina" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="cristina@damascus.net" />
+      </div>
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="e.g. Question about Figma components" />
+      </div>
+      <div class="form-group">
+        <label for="message">Your Question</label>
+        <textarea id="message" name="message" placeholder="Ask anything — no question is too small." required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send Message →</button>
+    </form>
+
+    <div class="form-success" id="form-success">
+      🌿 Message sent! We'll be in touch soon, Cristina.
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-brand">
+    <svg viewBox="0 0 60 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#9AB5A2" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#9AB5A2" stroke-width="2.5" stroke-linecap="round" transform="rotate(22 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#9AB5A2" stroke-width="2.5" stroke-linecap="round" transform="rotate(44 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#9AB5A2" stroke-width="2.5" stroke-linecap="round" transform="rotate(66 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#9AB5A2" stroke-width="2.5" stroke-linecap="round" transform="rotate(88 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#9AB5A2" stroke-width="2.5" stroke-linecap="round" transform="rotate(110 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#9AB5A2" stroke-width="2.5" stroke-linecap="round" transform="rotate(132 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#9AB5A2" stroke-width="2.5" stroke-linecap="round" transform="rotate(154 30 30)"/>
+      <line x1="30" y1="2" x2="30" y2="13" stroke="#9AB5A2" stroke-width="2.5" stroke-linecap="round" transform="rotate(176 30 30)"/>
+      <path d="M18 30 A12 12 0 0 1 42 30" fill="#9AB5A2"/>
+      <path d="M4 42 Q14 32 24 38 Q30 42 36 38 Q46 32 56 42 L56 52 L4 52 Z" fill="#9AB5A2"/>
+    </svg>
+    <span class="footer-name">Damascus</span>
+  </div>
+  <p class="footer-tagline">Join the adventure, Cristina.</p>
+  <p class="footer-copy">© 2025 Damascus. All rights reserved.</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+
+  const form = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = form.querySelector('.submit-btn');
+    btn.textContent = 'Sending…'; btn.disabled = true;
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+      if (res.ok) { form.style.display = 'none'; success.style.display = 'block'; }
+      else { btn.textContent = 'Try Again →'; btn.disabled = false; }
+    } catch { btn.textContent = 'Try Again →'; btn.disabled = false; }
+  });
+</script>
+</body>
+</html>
